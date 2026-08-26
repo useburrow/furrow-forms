@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "com.furrowforms/furrow-forms",
-  "description": "Form backend an agent can run end to end: register, provision a site's forms, generate snippets, filter spam, verify signed webhooks.",
+  "description": "Form backend an agent runs end to end: provision forms, snippets, spam, signed webhooks.",
   "repository": {
     "url": "https://github.com/useburrow/furrow-forms",
     "source": "github"
@@ -15,7 +15,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Bearer frw_… token from app.furrowforms.com (Settings → Tokens) or minted by the agent via POST https://api.furrowforms.com/api/register. Omit to use OAuth (dynamic client registration supported).",
+          "description": "Bearer frw_\u2026 token from app.furrowforms.com (Settings \u2192 Tokens) or minted by the agent via POST https://api.furrowforms.com/api/register. Omit to use OAuth (dynamic client registration supported).",
           "isRequired": false,
           "isSecret": true,
           "format": "string"
@@ -30,11 +30,13 @@
       "identifier": "@furrowforms/mcp",
       "version": "1.0.0",
       "runtimeHint": "npx",
-      "transport": { "type": "stdio" },
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
         {
           "name": "FURROW_TOKEN",
-          "description": "frw_… API token. Create one at app.furrowforms.com → Settings → Tokens, or let the agent register via the API.",
+          "description": "frw_\u2026 API token. Create one at app.furrowforms.com \u2192 Settings \u2192 Tokens, or let the agent register via the API.",
           "isRequired": true,
           "isSecret": true,
           "format": "string"
