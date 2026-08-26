@@ -1,0 +1,6 @@
+Wire the contact form to my form backend:
+- POST the FormData to https://api.furrowforms.com/s/fp_k7m2
+- add a hidden text input named "_gotcha" (honeypot — keep it empty)
+- add a hidden input named "_ft" set to Date.now() on page load (timing check)
+- on { ok: true } response, show the success state
+- no API route needed; the endpoint handles spam, storage, and email

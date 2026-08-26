@@ -1,0 +1,6 @@
+Make the contact form functional:
+- POST the FormData to https://api.furrowforms.com/s/fp_k7m2
+- add a hidden text input named "_gotcha" (honeypot, keep empty)
+- add a hidden input named "_ft" set to Date.now() on page load (timing check)
+- treat response JSON { ok: true } as success
+- no backend code needed — the endpoint handles spam, storage, and email

@@ -1,0 +1,4 @@
+# https://smithery.ai/docs/config
+startCommand:
+  type: http
+  url: https://api.furrowforms.com/mcp

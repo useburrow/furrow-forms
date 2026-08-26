@@ -1,0 +1,33 @@
+{
+  "manifest_version": "0.2",
+  "name": "furrow-forms",
+  "display_name": "Furrow Forms",
+  "version": "1.0.0",
+  "description": "A form backend your agent can run end to end — provision forms, spam, email, and signed webhooks for any site.",
+  "long_description": "Furrow Forms is the form backend for vibe-coded and static websites. Claude can register the account, provision a site's forms in one bootstrap_site call, generate the frontend snippet (honeypot and timing field included), and verify HMAC-signed webhook delivery — no dashboard required. 26 tools cover the whole product.",
+  "author": { "name": "Furrow Forms", "url": "https://furrowforms.com" },
+  "homepage": "https://furrowforms.com/ai",
+  "documentation": "https://furrowforms.com/docs/mcp",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": { "FURROW_TOKEN": "${user_config.token}" }
+    }
+  },
+  "user_config": {
+    "token": {
+      "type": "string",
+      "title": "Furrow Forms API token",
+      "description": "frw_… token from app.furrowforms.com → Settings → Tokens. Leave blank to sign in with OAuth.",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "keywords": ["forms", "form backend", "contact form", "webhooks", "static sites", "astro", "nextjs"],
+  "license": "MIT",
+  "compatibility": { "claude_desktop": ">=0.10.0", "platforms": ["darwin", "win32", "linux"], "runtimes": { "node": ">=20" } }
+}

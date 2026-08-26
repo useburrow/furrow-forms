@@ -1,0 +1,21 @@
+export default function ContactForm() {
+  const loadedAt = Date.now();
+  async function submit(e) {
+    e.preventDefault();
+    const res = await fetch('https://api.furrowforms.com/s/fp_k7m2', {
+      method: 'POST',
+      body: new FormData(e.target),
+    });
+    if ((await res.json()).ok) e.target.reset();
+  }
+
+  return (
+    <form onSubmit={submit}>
+      <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} />
+      <input type="hidden" name="_ft" value={loadedAt} />
+      <input name="email" type="email" required />
+      <textarea name="message" required />
+      <button>Send</button>
+    </form>
+  );
+}

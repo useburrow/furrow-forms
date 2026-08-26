@@ -1,0 +1,19 @@
+{
+  "name": "@furrowforms/mcp",
+  "version": "1.0.0",
+  "description": "Furrow Forms MCP server over stdio — a form backend your agent can register, provision, and verify on its own.",
+  "mcpName": "com.furrowforms/furrow-forms",
+  "type": "module",
+  "bin": { "furrow-forms-mcp": "bin/furrow-forms-mcp.js" },
+  "files": ["bin", "README.md"],
+  "engines": { "node": ">=20" },
+  "keywords": [
+    "mcp", "model-context-protocol", "form-backend", "forms", "contact-form",
+    "formspree-alternative", "static-site", "astro", "nextjs", "claude-code",
+    "cursor", "vibe-coding", "webhooks"
+  ],
+  "homepage": "https://furrowforms.com/ai",
+  "repository": { "type": "git", "url": "https://github.com/useburrow/furrow-forms", "directory": "packages/mcp" },
+  "license": "MIT",
+  "dependencies": { "mcp-remote": "^0.1.0" }
+}
