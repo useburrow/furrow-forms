@@ -6,7 +6,7 @@
     "url": "https://github.com/useburrow/furrow-forms",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "websiteUrl": "https://furrowforms.com/ai",
   "remotes": [
     {
@@ -28,7 +28,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@furrowforms/mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "furrow-forms",
   "display_name": "Furrow Forms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A form backend your agent can run end to end — provision forms, spam, email, and signed webhooks for any site.",
   "long_description": "Furrow Forms is the form backend for vibe-coded and static websites. Claude can register the account, provision a site's forms in one bootstrap_site call, generate the frontend snippet (honeypot and timing field included), and verify HMAC-signed webhook delivery — no dashboard required. 26 tools cover the whole product.",
   "author": { "name": "Furrow Forms", "url": "https://furrowforms.com" },

@@ -1,6 +1,6 @@
 {
   "name": "@furrowforms/mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Furrow Forms MCP server over stdio — a form backend your agent can register, provision, and verify on its own.",
   "mcpName": "com.furrowforms/furrow-forms",
   "type": "module",
