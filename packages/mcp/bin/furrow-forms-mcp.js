@@ -17,7 +17,13 @@ const token = process.env.FURROW_TOKEN;
 const args = [require.resolve('mcp-remote/dist/proxy.js'), url];
 if (token) args.push('--header', `Authorization:Bearer ${token}`);
 
-const child = spawn(process.execPath, args, { stdio: 'inherit', env: process.env });
+// Claude Desktop runs extensions on its bundled Electron binary; without
+// ELECTRON_RUN_AS_NODE the spawned child boots Electron instead of Node.
+// Harmless for a real Node executable.
+const child = spawn(process.execPath, args, {
+  stdio: 'inherit',
+  env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
+});
 child.on('exit', (code) => process.exit(code ?? 0));
 process.on('SIGINT', () => child.kill('SIGINT'));
 process.on('SIGTERM', () => child.kill('SIGTERM'));
