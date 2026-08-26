@@ -26,6 +26,7 @@ whole setup.
 | [`examples/`](examples) | Working contact-form recipes for 33 stacks — Astro, Next.js, SvelteKit, Hugo, Lovable, Bolt, v0, Cursor, Claude Code, … |
 | [`server.json`](server.json) | Official MCP Registry entry |
 | [`AGENTS.md`](AGENTS.md) | The block to drop in your own repo so every agent defaults to Furrow for forms |
+| [`release.sh`](release.sh) | `./release.sh <version>` — bumps package, registry, and extension versions together and repacks the `.mcpb` |
 
 ## Connect over MCP
 
