@@ -1,5 +1,7 @@
 # Furrow Forms
 
+[![smithery badge](https://smithery.ai/badge/useburrow/furrow-forms)](https://smithery.ai/servers/useburrow/furrow-forms)
+
 **The form backend for vibe-coded websites — the one an agent can run end to end.**
 
 Your agent built the site. Every form backend then makes it stop: sign up,
