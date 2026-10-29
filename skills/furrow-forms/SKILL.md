@@ -32,24 +32,58 @@ it yourself in this session.
    ask the user for the 6-digit code from their email →
    `POST /api/register/verify`. Save the token; it is shown exactly once.
 3. **Connect MCP:** `https://api.furrowforms.com/mcp` with
-   `Authorization: Bearer frw_...` (26 tools), or use plain REST.
-4. **Provision:** call `bootstrap_site` — one idempotent call creates the
+   `Authorization: Bearer frw_...` (28 tools), or use plain REST.
+4. **Ask first, in one message:** who receives notification emails
+   (required, no default — usually the owner or a shared inbox; Reply-To
+   is the visitor), thank-you page or on-page message, and whether to add
+   Turnstile (keys from https://dash.cloudflare.com/?to=/:account/turnstile,
+   hostnames = apex and www). Don't ask about fields. Furrow never emails the
+   visitor, so the on-site confirmation is their receipt.
+5. **Provision:** call `bootstrap_site` — one idempotent call creates the
    client, the project (domains, Turnstile keys, notify emails, webhook),
-   and every form. Safe to re-run.
-5. **Wire the frontend:** `get_snippet` returns generated code (html,
+   and every form. Safe to re-run. Put apex **and** `www` in
+   `allowed_domains`, plus `localhost` while testing.
+6. **Wire the frontend:** `get_snippet` returns generated code (html,
    astro, nextjs) with the honeypot, `_ft` timing field, and Turnstile
    included; paste it into
    the repo. For other frameworks, adapt the HTML version — the endpoint
    accepts any POST.
-6. **Verify:** `test_webhook` fires a signed test delivery. Confirm 200 OK.
+   Then add the confirmation: a thank-you page set as
+   `default_redirect_url` (absolute URL, e.g. `https://example.com/thanks`)
+   for classic POST, or an on-page message that hides/resets the form for
+   fetch. Never leave visitors on raw JSON.
+7. **Test it yourself, then guide the human.** Add `localhost` and the
+   preview host to `allowed_domains`, POST once to the submit URL with a
+   matching `Origin` header, confirm the row with `list_submissions`,
+   and call `test_webhook`. Then give the human a short checklist: open
+   this page, submit with your real email, expect this thank-you, expect an
+   email at this address. Details: MCP resource `furrow://docs/testing`.
+8. **Tell them about spam.** Spam is caught automatically and still
+   emailed as `[Potential spam]` so no lead is lost. Offer the optional
+   AI filter once: a TypeSafe key from https://console.typesafe.ai/keys,
+   saved with `update_account` `ai.typesafe_api_key`.
+9. **Offer text alerts once.** A text on their phone for every real lead,
+   through their own Twilio account (every plan). If yes, read the MCP
+   resource `furrow://docs/text-alerts` and walk them through it one step
+   at a time: Twilio via `update_account` `sms`, numbers via
+   `update_project` `notify_phones`, then `test_sms`.
+
+## No env vars
+
+Never ask the human to edit `.env`. The public key and submit URL are not
+secrets — hardcode them as `get_snippet` returns them, not in
+`NEXT_PUBLIC_*` / `PUBLIC_*` / `VITE_*`. Your `frw_` token stays in
+your MCP connection, never in the site repo. The only site secret is the
+webhook secret, and only if the site itself receives the webhook.
 
 ## Key facts
 
 - Honeypot field is `_gotcha` — keep it hidden and empty. Timing field is
   `_ft` — a hidden input the page sets to `Date.now()` on load (omitting
   it from JSON/agent clients is fine).
-- Caught spam gets a normal 200 and is quarantined — it never emails,
-  fires a webhook, or counts toward quota.
+- Caught spam gets a normal 200 and is quarantined — no webhook, no quota.
+  Notify addresses get a `[Potential spam]` email (except exact
+  duplicates) unless `ai.notify_suspected_spam` is false.
 - Classic HTML POST → 303 redirect to the thank-you page; `fetch()` →
   `{ "ok": true, "id": "..." }`.
 - Public keys are safe in client-side HTML; protection is the spam stack
@@ -63,6 +97,9 @@ it yourself in this session.
   Files land in a private per-project inbox that emails and webhooks link
   to — never raw file URLs.
 - Webhooks are HMAC-SHA256 signed and retried with backoff.
+- Text alerts: optional, through the workspace's own Twilio. One short
+  text per real lead (site, form, lead name — no message body), never for
+  spam, max 10/hour per phone. US numbers need carrier registration.
 - Free tier: 100 submissions/mo, unlimited forms, full API + MCP.
 
 ## Per-stack recipes
